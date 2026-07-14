@@ -24,12 +24,12 @@ public class ArticleController {
         return articleService.create(request);
     }
 
-    @PutMapping("/v1/articls/{articleId}")
+    @PutMapping("/v1/articles/{articleId}")
     public ArticleResponse update(@PathVariable Long articleId, @RequestBody ArticleUpdateRequest request) {
         return articleService.update(articleId, request);
     }
 
-    @DeleteMapping("/v1/articls/{articleId}")
+    @DeleteMapping("/v1/articles/{articleId}")
     public void delete(@PathVariable Long articleId) {
         articleService.delete(articleId);
     }
