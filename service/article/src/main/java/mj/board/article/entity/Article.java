@@ -26,7 +26,7 @@ public class Article {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public static Article create(Long articleId, String title, String content, Long boardId, Long writerId, LocalDateTime createAt, LocalDateTime modifiedAt) {
+    public static Article create(Long articleId, String title, String content, Long boardId, Long writerId) {
         Article article = new Article();
         article.articleId = articleId;
         article.title = title;
@@ -34,7 +34,7 @@ public class Article {
         article.boardId = boardId;
         article.writerId = writerId;
         article.createdAt = LocalDateTime.now();
-        article.modifiedAt = modifiedAt;
+        article.modifiedAt = article.createdAt;
         return article;
     }
 
