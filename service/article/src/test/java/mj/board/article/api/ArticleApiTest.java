@@ -3,9 +3,12 @@ package mj.board.article.api;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import mj.board.article.service.request.ArticleCreateRequest;
+import mj.board.article.service.response.ArticlePageResponse;
 import mj.board.article.service.response.ArticleResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
+
+import java.util.List;
 
 public class ArticleApiTest {
 
@@ -33,6 +36,21 @@ public class ArticleApiTest {
     void readTest() {
         ArticleResponse read = read(335411627701133312L);
         System.out.println("read = " + read);
+    }
+
+    @Test
+    void readAllTest() {
+        ArticlePageResponse body = restClient.get()
+                .uri("/v1/articles?boardId=1&page=1&pageSize=10000")
+                .retrieve()
+                .body(ArticlePageResponse.class);
+
+        System.out.println("body.getArticleCount() = " + body.getArticleCount());
+        List<ArticleResponse> articleList = body.getArticleList();
+        for (ArticleResponse response : articleList) {
+            System.out.println("response.getArticleId() = " + response.getArticleId());
+        }
+        
     }
 
     ArticleResponse create(ArticleCreateRequest request) {
