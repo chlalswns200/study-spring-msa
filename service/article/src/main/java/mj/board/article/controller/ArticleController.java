@@ -31,6 +31,15 @@ public class ArticleController {
         return articleService.readAll(boardId, page, pageSize);
     }
 
+    @GetMapping("/v1/articles/infinite-scorll")
+    public List<ArticleResponse> readAllInfiniteScorll(
+            @RequestParam("boardId") Long boardId,
+            @RequestParam(value = "lastArticleId", required = false) Long lastArticleId,
+            @RequestParam("pageSize")  Long pageSize
+    ) {
+        return articleService.readAllInfiniteScroll(boardId, pageSize, lastArticleId);
+    }
+
     @PostMapping("/v1/articles")
     public ArticleResponse create(@RequestBody ArticleCreateRequest request) {
         return articleService.create(request);
