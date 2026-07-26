@@ -31,4 +31,21 @@ class ArticleRepositoryTest {
         log.info("count: {}", count);
     }
 
+    @Test
+    void findInfiniteScrollTest() {
+        List<Article> allInfiniteScroll = articleRepository.findAllInfiniteScroll(1L, 30L);
+        for (Article article : allInfiniteScroll) {
+            log.info("article: {}", article.getArticleId());
+        }
+
+        Long lastArticleId = allInfiniteScroll.getLast().getArticleId();
+        log.info("lastArticleId: {}", lastArticleId);
+        List<Article> allInfiniteScroll1 = articleRepository.findAllInfiniteScroll(1L, 30L, lastArticleId);
+
+        for (Article article : allInfiniteScroll1) {
+            log.info("after last id article: {}", article.getArticleId());
+
+        }
+    }
+
 }
