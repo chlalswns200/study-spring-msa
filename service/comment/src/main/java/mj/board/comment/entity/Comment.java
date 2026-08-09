@@ -40,7 +40,7 @@ public class Comment {
     }
 
     public boolean isRoot() {
-        return this.parentCommentId == this.commentId;
+        return this.parentCommentId.equals(this.commentId);
     }
 
     public void delete() {
