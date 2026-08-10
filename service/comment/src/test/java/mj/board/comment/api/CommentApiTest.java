@@ -37,6 +37,13 @@ public class CommentApiTest {
         System.out.println("response = " + response);
     }
 
+    @Test
+    void delete() {
+        restClient.delete()
+                .uri("/v1/comments/{commentId}", 345052941060603904L)
+                .retrieve();
+    }
+
     CommentResponse createComment(CommentCreateRequest request) {
         return restClient.post()
                 .uri("/v1/comments")
