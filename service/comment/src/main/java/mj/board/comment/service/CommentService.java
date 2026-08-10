@@ -50,8 +50,9 @@ public class CommentService {
         return CommentResponse.from(comment);
     }
 
-    public void delete(Long id) {
-        commentRepository.findById(id)
+    @Transactional
+    public void delete(Long commentId) {
+        commentRepository.findById(commentId)
                 .filter(not(Comment::getDeleted))
                 .ifPresent(comment -> {
                     if (hasChildren(comment)) {
@@ -66,8 +67,7 @@ public class CommentService {
         return commentRepository.countBy(comment.getArticleId(), comment.getCommentId(), 2L) == 2L;
     }
 
-    @Transactional
-    public void delete(Comment comment) {
+    private void delete(Comment comment) {
         commentRepository.delete(comment);
         if (!comment.isRoot()) {
             commentRepository.findById(comment.getParentCommentId())
