@@ -40,7 +40,7 @@ public class CommentController {
 
     @GetMapping("/v1/comments/infinite-scroll")
     public List<CommentResponse> readAll(
-            @RequestParam("aritcleId") Long articleId,
+            @RequestParam("articleId") Long articleId,
             @RequestParam(value = "lastParentCommentId", required = false) Long lastParentCommentId,
             @RequestParam(value = "lastCommentId",required = false) Long lastCommentId,
             @RequestParam("pageSize") Long pageSize
