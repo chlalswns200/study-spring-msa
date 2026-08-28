@@ -3,8 +3,11 @@ package mj.board.comment.controller;
 import lombok.RequiredArgsConstructor;
 import mj.board.comment.service.CommentService;
 import mj.board.comment.service.request.CommentCreateRequest;
+import mj.board.comment.service.response.CommentPageResponse;
 import mj.board.comment.service.response.CommentResponse;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +27,25 @@ public class CommentController {
     @DeleteMapping("/v1/comments/{commentId}")
     public void delete (@PathVariable Long commentId) {
         commentService.delete(commentId);
+    }
+
+    @GetMapping("/v1/comments")
+    public CommentPageResponse readAll(
+            @PathVariable("aritcleId") Long articleId,
+            @PathVariable("page") Long page,
+            @PathVariable("pageSize") Long pageSize
+    ) {
+        return commentService.readAll(articleId, page, pageSize);
+    }
+
+    @GetMapping("/v1/comments/infinite-scroll")
+    public List<CommentResponse> readAll(
+            @PathVariable("aritcleId") Long articleId,
+            @PathVariable("lastParentCommentId") Long lastParentCommentId,
+            @PathVariable("lastCommentId") Long lastCommentId,
+            @PathVariable("pageSize") Long pageSize
+    ) {
+        return commentService.readAll(articleId, lastParentCommentId, lastCommentId, pageSize);
     }
 
 }
