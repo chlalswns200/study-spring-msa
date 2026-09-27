@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleLikeController {
     private final ArticleLikeService articleLikeService;
 
-    @GetMapping("/v1/article-likes/aritcles/{articleId}/users/{userId}")
+    @GetMapping("/v1/article-like/aritcles/{articleId}/users/{userId}")
     public ArticleLikeResponse read(
             @PathVariable Long articleId,
             @PathVariable Long userId
@@ -18,7 +18,7 @@ public class ArticleLikeController {
         return articleLikeService.read(articleId, userId);
     }
 
-    @PostMapping("/v1/article-likes/aritcles/{articleId}/users/{userId}")
+    @PostMapping("/v1/article-like/aritcles/{articleId}/users/{userId}")
     public void like(
             @PathVariable Long articleId,
             @PathVariable Long userId
@@ -26,7 +26,7 @@ public class ArticleLikeController {
         articleLikeService.like(articleId, userId);
     }
 
-    @DeleteMapping("/v1/article-likes/aritcles/{articleId}/users/{userId}")
+    @DeleteMapping("/v1/article-like/aritcles/{articleId}/users/{userId}")
     public void unlike(
             @PathVariable Long articleId,
             @PathVariable Long userId

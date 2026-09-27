@@ -19,7 +19,7 @@ public class ArticleLikeResponse {
         response.articleLikeId = articleLike.getArticleLikeId();
         response.articleId = articleLike.getArticleId();
         response.userId = articleLike.getUserId();
-        response.createAt = articleLike.getCreateAt();
+        response.createAt = articleLike.getCreatedAt();
         return response;
     }
 }
