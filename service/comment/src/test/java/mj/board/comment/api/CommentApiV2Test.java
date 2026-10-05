@@ -52,6 +52,30 @@ public class CommentApiV2Test {
                 .retrieve();
     }
 
+    @Test
+    void countTest() {
+        CommentResponse myComment1 = create(new CommentCreateRequestV2(2L, "my comment1", null, 1L));
+
+        Long response = restClient.get()
+                .uri("/v2/comments/articles/{articleId}/count", myComment1.getArticleId())
+                .retrieve()
+                .body(Long.class);
+
+        System.out.println("response = " + response);
+
+        restClient.delete()
+                .uri("/v2/comments/{commentId}", myComment1.getCommentId())
+                .retrieve();
+
+        Long response2 = restClient.get()
+                .uri("/v2/comments/articles/{articleId}/count", myComment1.getArticleId())
+                .retrieve()
+                .body(Long.class);
+
+        System.out.println("response2 = " + response2);
+
+    }
+
     @Getter
     @AllArgsConstructor
     public static class CommentCreateRequestV2 {
