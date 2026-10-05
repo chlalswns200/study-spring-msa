@@ -3,9 +3,11 @@ package mj.board.comment.service;
 import jakarta.transaction.Transactional;
 import kuke.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
+import mj.board.comment.entity.ArticleCountComment;
 import mj.board.comment.entity.Comment;
 import mj.board.comment.entity.CommentPath;
 import mj.board.comment.entity.CommentV2;
+import mj.board.comment.repository.ArticleCommentCountRepository;
 import mj.board.comment.repository.CommentRepositoryV2;
 import mj.board.comment.service.request.CommentCreateRequestV2;
 import mj.board.comment.service.response.CommentPageResponse;
@@ -21,6 +23,7 @@ import static java.util.function.Predicate.not;
 public class CommentServiceV2 {
     private final Snowflake snowflake = new Snowflake();
     private final CommentRepositoryV2 commentRepository;
+    private final ArticleCommentCountRepository articleCommentCountRepository;
 
     @Transactional
     public CommentResponse create(CommentCreateRequestV2 request) {
@@ -38,6 +41,14 @@ public class CommentServiceV2 {
                         )
                 )
         );
+
+        int increase = articleCommentCountRepository.increase(request.getArticleId());
+        if (increase == 0) {
+            articleCommentCountRepository.save(
+                    ArticleCountComment.init(request.getArticleId(), 1L)
+            );
+        }
+
 
         return CommentResponse.from(comment);
 
@@ -81,6 +92,7 @@ public class CommentServiceV2 {
 
     private void delete(CommentV2 comment) {
         commentRepository.delete(comment);
+        articleCommentCountRepository.decrease(comment.getArticleId());
         if (!comment.isRoot()) {
             commentRepository.findByPath(comment.getCommentPath().getParentPath())
                     .filter(CommentV2::getDeleted)
@@ -106,6 +118,12 @@ public class CommentServiceV2 {
         return comments.stream()
                 .map(CommentResponse::from)
                 .toList();
+    }
+
+    public Long count(Long articleId) {
+        return articleCommentCountRepository.findById(articleId)
+                .map(ArticleCountComment::getCommentCount)
+                .orElse(0L);
     }
 
 }
