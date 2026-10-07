@@ -1,10 +1,10 @@
 package mj.board.view.repository;
 
-import io.lettuce.core.dynamic.annotation.Param;
 import mj.board.view.entity.ArticleViewCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,7 +17,7 @@ public interface ArticleViewCountBackUpRepository extends JpaRepository<ArticleV
     )
     @Modifying
     int updateViewCount(
-            @Param("aritcleId") Long articleId,
+            @Param("articleId") Long articleId,
             @Param("viewCount") Long viewCount
     );
 }
