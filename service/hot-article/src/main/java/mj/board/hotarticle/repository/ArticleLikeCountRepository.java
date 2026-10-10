@@ -8,7 +8,7 @@ import java.time.Duration;
 
 @Repository
 @RequiredArgsConstructor
-public class ArticleCountRepository {
+public class ArticleLikeCountRepository {
     private final StringRedisTemplate redisTemplate;
 
     // hot-article::article::{articleId}::like-count

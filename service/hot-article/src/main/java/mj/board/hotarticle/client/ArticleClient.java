@@ -29,7 +29,6 @@ public class ArticleClient {
                     .uri("/v1/articles/{articleId}", articleId)
                     .retrieve()
                     .body(ArticleResponse.class);
-
         } catch (Exception e) {
             log.error("[ArticleClient.read] articleId={}", articleId, e);
         }
