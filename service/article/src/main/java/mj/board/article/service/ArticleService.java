@@ -1,6 +1,6 @@
 package mj.board.article.service;
 
-import kuke.board.common.snowflake.Snowflake;
+import mj.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import mj.board.article.entity.Article;
 import mj.board.article.entity.BoardArticleCount;
@@ -10,7 +10,6 @@ import mj.board.article.service.request.ArticleCreateRequest;
 import mj.board.article.service.request.ArticleUpdateRequest;
 import mj.board.article.service.response.ArticlePageResponse;
 import mj.board.article.service.response.ArticleResponse;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

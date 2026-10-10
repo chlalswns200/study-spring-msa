@@ -1,6 +1,6 @@
 package mj.board.comment.service;
 
-import kuke.board.common.snowflake.Snowflake;
+import mj.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import mj.board.comment.entity.Comment;
 import mj.board.comment.repository.CommentRepository;

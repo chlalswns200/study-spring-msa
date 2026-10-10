@@ -1,10 +1,9 @@
 package mj.board.comment.service;
 
 import jakarta.transaction.Transactional;
-import kuke.board.common.snowflake.Snowflake;
+import mj.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import mj.board.comment.entity.ArticleCountComment;
-import mj.board.comment.entity.Comment;
 import mj.board.comment.entity.CommentPath;
 import mj.board.comment.entity.CommentV2;
 import mj.board.comment.repository.ArticleCommentCountRepository;

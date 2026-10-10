@@ -1,7 +1,7 @@
 package mj.board.like.service;
 
 import jakarta.transaction.Transactional;
-import kuke.board.common.snowflake.Snowflake;
+import mj.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import mj.board.like.entity.ArticleLike;
 import mj.board.like.entity.ArticleLikeCount;
@@ -9,8 +9,6 @@ import mj.board.like.repository.ArticleLikeCountRepository;
 import mj.board.like.repository.ArticleLikeRepository;
 import mj.board.like.service.response.ArticleLikeResponse;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
