@@ -2,6 +2,7 @@ package mj.board.article.service;
 
 import mj.board.common.event.EventType;
 import mj.board.common.event.payload.ArticleCreatedEventPayload;
+import mj.board.common.event.payload.ArticleDeletedEventPayload;
 import mj.board.common.event.payload.ArticleUpdatedEventPayload;
 import mj.board.common.outboxmessagerelay.OutboxEventPublisher;
 import mj.board.common.snowflake.Snowflake;
@@ -87,7 +88,7 @@ public class ArticleService {
         boardArticleCountRepository.decrease(article.getBoardId());
         outboxEventPublisher.publish(
                 EventType.ARTICLE_DELETED,
-                ArticleUpdatedEventPayload.builder().articleId(article.getArticleId())
+                ArticleDeletedEventPayload.builder().articleId(article.getArticleId())
                         .title(article.getTitle())
                         .content(article.getContent())
                         .boardId(article.getBoardId())
