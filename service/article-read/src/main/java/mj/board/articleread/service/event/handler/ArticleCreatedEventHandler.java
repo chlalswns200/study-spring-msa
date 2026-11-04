@@ -1,0 +1,32 @@
+package mj.board.articleread.service.event.handler;
+
+import lombok.RequiredArgsConstructor;
+import mj.board.articleread.repository.ArticleQueryModel;
+import mj.board.articleread.repository.ArticleQueryModelRepository;
+import mj.board.common.event.Event;
+import mj.board.common.event.payload.ArticleCreatedEventPayload;
+import org.springframework.stereotype.Component;
+
+import java.time.Duration;
+
+@Component
+@RequiredArgsConstructor
+public class ArticleCreatedEventHandler implements EventHandler<ArticleCreatedEventPayload> {
+    private final ArticleQueryModelRepository articleQueryModelRepository;
+
+
+    @Override
+    public void handle(Event<ArticleCreatedEventPayload> event) {
+        ArticleCreatedEventPayload payload = event.getPayload();
+        articleQueryModelRepository.create(
+                ArticleQueryModel.create(
+                        ArticleQueryModel.create(payload),
+                        ), Duration.ofDays(1)
+        );
+    }
+
+    @Override
+    public boolean supports(Event<ArticleCreatedEventPayload> event) {
+        return false;
+    }
+}
