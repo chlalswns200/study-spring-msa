@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mj.board.articleread.repository.ArticleQueryModel;
 import mj.board.articleread.repository.ArticleQueryModelRepository;
 import mj.board.common.event.Event;
+import mj.board.common.event.EventType;
 import mj.board.common.event.payload.ArticleCreatedEventPayload;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +20,13 @@ public class ArticleCreatedEventHandler implements EventHandler<ArticleCreatedEv
     public void handle(Event<ArticleCreatedEventPayload> event) {
         ArticleCreatedEventPayload payload = event.getPayload();
         articleQueryModelRepository.create(
-                ArticleQueryModel.create(
-                        ArticleQueryModel.create(payload),
-                        ), Duration.ofDays(1)
+                ArticleQueryModel.create(payload),
+                Duration.ofDays(1)
         );
     }
 
     @Override
     public boolean supports(Event<ArticleCreatedEventPayload> event) {
-        return false;
+        return EventType.ARTICLE_CREATED == event.getType();
     }
 }
