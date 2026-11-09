@@ -1,7 +1,9 @@
 package mj.board.article.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +12,10 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Table(name = "article")
+@Table(
+        name = "article",
+        indexes = @Index(name = "idx_board_id_article_id", columnList = "board_id asc, article_id desc")
+)
 @Getter
 @Entity
 @ToString
@@ -19,7 +24,9 @@ public class Article {
 
     @Id
     private Long articleId;
+    @Column(length = 100, nullable = false)
     private String title;
+    @Column(length = 3000, nullable = false)
     private String content;
     private Long boardId; // shard key
     private Long writerId;

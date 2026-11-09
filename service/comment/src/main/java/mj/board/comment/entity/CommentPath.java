@@ -1,5 +1,6 @@
 package mj.board.comment.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,6 +13,9 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentPath {
 
+    // 대소문자를 구분해서 정렬/비교해야 하므로 utf8mb4_bin collation 필수
+    @Column(name = "path", nullable = false,
+            columnDefinition = "varchar(25) character set utf8mb4 collate utf8mb4_bin")
     private String path;
     private static final String CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 

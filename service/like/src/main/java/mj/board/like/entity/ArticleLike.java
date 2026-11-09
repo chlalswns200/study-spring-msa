@@ -2,6 +2,7 @@ package mj.board.like.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,7 +12,10 @@ import org.springframework.boot.autoconfigure.jms.artemis.ArtemisConfigurationCu
 
 import java.time.LocalDateTime;
 
-@Table(name="article_like")
+@Table(
+        name = "article_like",
+        indexes = @Index(name = "idx_article_id_user_id", columnList = "article_id asc, user_id asc", unique = true)
+)
 @Getter
 @Entity
 @ToString

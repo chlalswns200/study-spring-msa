@@ -9,7 +9,10 @@ import mj.board.common.event.EventType;
 
 import java.time.LocalDateTime;
 
-@Table(name="outbox")
+@Table(
+        name = "outbox",
+        indexes = @Index(name = "idx_shard_key_created_at", columnList = "shard_key asc, created_at asc")
+)
 @Getter
 @Entity
 @ToString
@@ -18,10 +21,14 @@ public class Outbox {
     @Id
     private Long outboxId;
     @Enumerated(EnumType.STRING)
+    @Column(length = 100, nullable = false)
     private EventType eventType;
+    @Column(length = 5000, nullable = false)
     private String payload;
+    @Column(nullable = false)
     private Long shardKey;
-    private LocalDateTime createAt;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
     public static Outbox create(Long outboxId, EventType eventType, String payload, Long shardKey) {
         Outbox outbox = new Outbox();
@@ -29,7 +36,7 @@ public class Outbox {
         outbox.eventType = eventType;
         outbox.payload = payload;
         outbox.shardKey = shardKey;
-        outbox.createAt = LocalDateTime.now();
+        outbox.createdAt = LocalDateTime.now();
         return outbox;
     }
 }
